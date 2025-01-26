@@ -14,7 +14,7 @@ Welcome to the Electrical Toolbox! This simple web application helps electrician
 4. Submit the form to calculate the total wire length required.
 
 ## Video Demo
-Watch the demo and walkthrough of the code here: [Demo Video](YOUR_LINK_HERE)
+Watch the demo and walkthrough of the code here: https://youtu.be/WELP7-aKag4
 
 ## How to Run
 1. Download the `index.html` file from this repository.
