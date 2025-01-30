@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Toolbox</title>
+</head>
+<body>
+    <h1>Welcome to the Electrical Toolbox</h1>
+    <p>This tool helps you calculate the wire length for electrical installations.</p>
+
+    <form method="get">
+        <label for="distance">Enter the distance (in meters) from the power source to the device:</label><br>
+        <input type="number" id="distance" name="distance" required><br><br>
+
+        <label for="height">Enter the height (in meters) of the installation (optional, if needed):</label><br>
+        <input type="number" id="height" name="height"><br><br>
+
+        <label for="extraLength">Enter extra wire length (in meters) to account for corners or adjustments (optional):</label><br>
+        <input type="number" id="extraLength" name="extraLength"><br><br>
+
+        <input type="submit" value="Calculate Wire Length">
+    </form>
+
+    <h2>Calculated Wire Length</h2>
+    <p id="result"></p>
+
+    <script>
+        // This script will calculate the wire length based on the form input
+        const params = new URLSearchParams(window.location.search);
+        
+        if (params.has('distance')) {
+            const distance = parseFloat(params.get('distance'));
+            const height = parseFloat(params.get('height') || 0);
+            const extraLength = parseFloat(params.get('extraLength') || 0);
+
+            // Calculating wire length
+            
+            let wireLength = distance;
+
+            if (height > 0) {
+                // Pythagorean theorem
+                wireLength = Math.sqrt(distance ** 2 + height ** 2);  
+            }
+
+            // Adding any extra length for adjustments
+            wireLength += extraLength;  
+
+            // Displaying result
+            document.getElementById('result').innerText = `The total wire length needed is ${wireLength.toFixed(2)} meters.`;
+        }
+    </script>
+</body>
+</html>
