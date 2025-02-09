@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Toolbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Electrical Toolbox</h1>
+        <p>Calculate the wire length needed for different installation types.</p>
+        
+        <form id="wireCalculator">
+            <label for="installationType">Select Installation Type:</label>
+            <select id="installationType">
+                <option value="straight">Straight Line</option>
+                <option value="withHeight">Height Included</option>
+                <option value="complex">Complex Route</option>
+            </select>
+
+            <label for="distance">Enter Distance (meters):</label>
+            <input type="number" id="distance" required>
+
+            <div id="heightInput" style="display: none;">
+                <label for="height">Enter Height (meters):</label>
+                <input type="number" id="height">
+            </div>
+            
+            <label for="extraLength">Extra Wire Length (meters) for Adjustments:</label>
+            <input type="number" id="extraLength">
+
+            <button type="button" onclick="calculateWireLength()">Calculate</button>
+        </form>
+
+        <h2>Calculated Wire Length</h2>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.getElementById('installationType').addEventListener('change', function() {
+            document.getElementById('heightInput').style.display = this.value === 'withHeight' ? 'block' : 'none';
+        });
+
+        function calculateWireLength() {
+            let distance = parseFloat(document.getElementById('distance').value);
+            let extraLength = parseFloat(document.getElementById('extraLength').value) || 0;
+            let installationType = document.getElementById('installationType').value;
+            let wireLength = distance;
+
+            if (installationType === 'withHeight') {
+                let height = parseFloat(document.getElementById('height').value) || 0;
+                wireLength = Math.sqrt(distance ** 2 + height ** 2);
+            } else if (installationType === 'complex') {
+                wireLength *= 1.2; // Assume 20% extra wire needed for complex paths
+            }
+
+            wireLength += extraLength;
+            document.getElementById('result').innerText = `Total wire length needed: ${wireLength.toFixed(2)} meters.`;
+        }
+    </script>
+</body>
+</html>
